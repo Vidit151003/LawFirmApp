@@ -1,5 +1,6 @@
 import 'package:app1/Client_Sign_In_Page.dart';
 import 'package:app1/authority_sign_in.dart';
+import 'package:app1/client_dahboard.dart';
 import 'package:app1/client_sign_up_page.dart';
 import 'package:app1/lawyer_sign_in.dart';
 import 'package:flutter/material.dart';
@@ -83,7 +84,7 @@ class WelcomePage extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => SignUpPage()),
+                    MaterialPageRoute(builder: (context) => ClientDashboard()),
                   );// Navigate to the Sign Up page
                 },
                   child:
