@@ -85,7 +85,7 @@ class ClientSignInPage extends StatelessWidget {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                   content: Text(
-                                      'Please enter your email and password.'),
+                                      'Please enter your Email and OTP.'),
                                   backgroundColor: Colors.red,
                                 ),
                               );
@@ -95,7 +95,7 @@ class ClientSignInPage extends StatelessWidget {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                   content: Text(
-                                      'Please enter your email '),
+                                      'Please enter your Email '),
                                   backgroundColor: Colors.red,
                                 ),
                               );

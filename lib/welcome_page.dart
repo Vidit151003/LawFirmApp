@@ -20,8 +20,8 @@ class WelcomePage extends StatelessWidget {
             SizedBox(height: 10),
 
             Container(
-              height:80,
-                width: 300,
+              height:65,
+                width: 280,
 
               child: ElevatedButton(
 
@@ -38,10 +38,10 @@ class WelcomePage extends StatelessWidget {
                   )
               ),
             ),
-          SizedBox(height: 10),
+          SizedBox(height: 16),
           Container(
-            height: 80,
-            width: 300,
+            height: 65,
+            width: 280,
             child: ElevatedButton(
                 onPressed: () {
                   Navigator.push(
@@ -56,10 +56,10 @@ class WelcomePage extends StatelessWidget {
                 )
               ),
           ),
-            SizedBox(height: 10),
+            SizedBox(height: 16),
             Container(
-              height: 80,
-              width: 300,
+              height: 65,
+              width: 280,
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.push(
@@ -74,26 +74,32 @@ class WelcomePage extends StatelessWidget {
                   )
               ),
             ),
-            SizedBox(height: 20),
-            Text('Not a user?', style: TextStyle(fontSize: 20),),
             SizedBox(height: 10),
-            Container(
-              height: 80,
-              width: 300,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => ClientDashboard()),
-                  );// Navigate to the Sign Up page
-                },
-                  child:
-                  Text('Sign Up!',style: TextStyle(color: Colors.white,fontSize: 20)),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromRGBO(0, 65, 120, 1),
-                  )
-              ),
-            ),
+            
+
+              Row(
+                  children: [
+                    SizedBox(width: 100,),
+
+                 Text('Not a user?', style: TextStyle(fontSize: 20),),
+
+              Container(
+                height: 60,
+                width: 109,
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ClientDashboard()),
+                    );// Navigate to the Sign Up page
+                  },
+                    child:
+                    Text('Sign Up!',style: TextStyle(color: Color.fromRGBO(0, 65, 120, 1),fontSize: 20)),
+
+                    )
+                ),
+              ],),
+
           ],
         ),
       ),
