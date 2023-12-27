@@ -74,17 +74,36 @@ class AuthoritySignInPage extends StatelessWidget {
                         child: InkWell(
                           onTap: () {
                             // Validate if the email and password fields are not empty
-                            if (emailController.text.isEmpty ||
+                            if (emailController.text.isEmpty &&
                                 passwordController.text.isEmpty) {
                               // If any field is empty, show a snackbar with an error message
                               ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
+                                const SnackBar(
                                   content: Text(
                                       'Please enter your email and password.'),
                                   backgroundColor: Colors.red,
                                 ),
                               );
-                            } else {
+                            } else if (emailController.text.isEmpty)
+                            {
+                              // If any field is empty, show a snackbar with an error message
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                      'Please enter your email '),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                            }  else if (passwordController.text.isEmpty) {
+                              // If any field is empty, show a snackbar with an error message
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                      'Please enter your password.'),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                            }else {
                               // If both fields are filled, you can proceed with your logic
                               // For example, you can call a function to handle the sign-in process
                               handleSignIn(emailController.text,
