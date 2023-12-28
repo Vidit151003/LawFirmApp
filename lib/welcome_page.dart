@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:app1/Client_Sign_In_Page.dart';
 import 'package:app1/authority_sign_in.dart';
 import 'package:app1/client_dahboard.dart';
@@ -17,7 +19,11 @@ class WelcomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Image.asset('assets/images/logo.png'),
-            SizedBox(height: 10),
+            SizedBox(height: 25),
+            
+            Text("Welcome!", style: TextStyle(fontFamily: "Istok Web", fontSize: 32,),),
+
+            SizedBox(height: 10,),
 
             Container(
               height:65,
@@ -79,9 +85,9 @@ class WelcomePage extends StatelessWidget {
 
               Row(
                   children: [
-                    SizedBox(width: 100,),
+                    SizedBox(width: 98,),
 
-                 Text('Not a user?', style: TextStyle(fontSize: 20),),
+                 Text('Not a user?', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
 
               Container(
                 height: 60,
@@ -94,7 +100,7 @@ class WelcomePage extends StatelessWidget {
                     );// Navigate to the Sign Up page
                   },
                     child:
-                    Text('Sign Up!',style: TextStyle(color: Color.fromRGBO(0, 65, 120, 1),fontSize: 20)),
+                    Text('Sign Up!',style: TextStyle(color: Color.fromRGBO(0, 65, 120, 1),fontSize: 18, fontWeight: FontWeight.bold,),),
 
                     )
                 ),

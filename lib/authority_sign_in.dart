@@ -8,7 +8,7 @@ class AuthoritySignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(0, 65, 120, 1),
+      backgroundColor: const Color.fromRGBO(0, 65, 120, 1),
       body: Center(
         child: SingleChildScrollView(
           padding: EdgeInsets.all(32),
@@ -110,7 +110,7 @@ class AuthoritySignInPage extends StatelessWidget {
                                   passwordController.text, context);
                             }
                           },
-                          child: Text(
+                          child: const Text(
                             'Submit',
                             style: TextStyle(
                               color: Colors.white,

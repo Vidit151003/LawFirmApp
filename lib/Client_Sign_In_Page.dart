@@ -52,6 +52,7 @@ class ClientSignInPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(35),
                         ),
                       ),
+                      keyboardType: TextInputType.emailAddress,
                     ),
                     SizedBox(height: 16),
                     TextField(
@@ -135,9 +136,9 @@ class ClientSignInPage extends StatelessWidget {
     );
   }
 
-  void handleSignIn(String email, String password, BuildContext context) {
+  void handleSignIn(String email, String OTP, BuildContext context) {
     // Add your sign-in logic here
-    print('Email: $email, Password: $password');
+    print('Email: $email, OTP: $OTP');
     // You can navigate to another screen or perform other actions based on the sign-in information
   }
 }
