@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "481632927012",
+    "project_id": "upscalelegal-2608a",
+    "storage_bucket": "upscalelegal-2608a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:481632927012:android:179665e62cd916bf1147b1",
+        "android_client_info": {
+          "package_name": "com.newapp.UpScale"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBl9pIIvz3nGkNRsA8gO-0Mw5UNzBCcs1I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
