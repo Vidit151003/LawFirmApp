@@ -1,9 +1,11 @@
 
-import 'package:app1/newkaam/chatmanage.dart';
-import 'package:app1/newkaam/registeruser.dart';
-import 'package:app1/signin/add_lawyer.dart';
-import 'package:app1/welcome_page.dart';
+import 'package:app1/chat/chatmanage.dart';
+import 'package:app1/Screens/registeruser.dart';
+import 'package:app1/Screens/welcome_page.dart';
 import 'package:flutter/material.dart';
+
+import '../Screens/add_authority.dart';
+import '../Screens/add_lawyer.dart';
 
 class AuthorityDashboard extends StatelessWidget {
   const AuthorityDashboard({super.key});
@@ -25,11 +27,10 @@ class AuthorityDashboard extends StatelessWidget {
                     const SizedBox(height: 200,),
                     ElevatedButton(
                       onPressed: () {
-                        // Navigate to AddLawyer screen
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const addlawyer(),
+                            builder: (context) => const AddLawyer(),
                           ),
                         );
                       },
@@ -38,7 +39,12 @@ class AuthorityDashboard extends StatelessWidget {
                     const SizedBox(height: 20,),
                     ElevatedButton(
                       onPressed: () {
-                        // Navigate to AddAuthority screen
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const AddAuthority(),
+                          ),
+                        );
                       },
                       child: const Text("Add Authority"),
                     ),
@@ -46,12 +52,6 @@ class AuthorityDashboard extends StatelessWidget {
                     ElevatedButton(
                       onPressed: () {
                         // Navigate to ChatScreen with parameters
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const WelcomePage(),
-                          ),
-                        );
                       },
                       child: const Text("Open Chat"),
                     ),

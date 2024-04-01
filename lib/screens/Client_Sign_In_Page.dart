@@ -1,8 +1,8 @@
-import 'package:app1/ForgotPassword.dart';
-import 'package:app1/authority_dashboard.dart';
-import 'package:app1/client_sign_up_page.dart';
-import 'package:app1/lawyer_dashboard.dart';
-import 'package:app1/utils.dart';
+import 'package:app1/Screens/ForgotPassword.dart';
+import 'package:app1/dashbord/authority_dashboard.dart';
+import 'package:app1/Screens/client_sign_up_page.dart';
+import 'package:app1/dashbord/lawyer_dashboard.dart';
+import 'package:app1/widgets/utils.dart';
 import 'package:app1/widgets/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'client_dahboard.dart';
+import '../dashbord/client_dahboard.dart';
 
 class ClientSignInPage extends StatefulWidget {
   const ClientSignInPage({super.key});
@@ -281,7 +281,7 @@ class _ClientSignIn extends State<ClientSignInPage> {
           MaterialPageRoute(builder: (context) => const AuthorityDashboard()));
     } else if (name2.toString() == "lawyer") {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const LawyerDashbaord()));
+          context, MaterialPageRoute(builder: (context) => const LawyerDashboard()));
     } else {
       utils().toastMessage("User Data not Found");
     }

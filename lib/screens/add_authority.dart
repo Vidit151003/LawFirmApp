@@ -1,7 +1,7 @@
 
-import 'package:app1/authority_dashboard.dart';
 
-import 'package:app1/utils.dart';
+import 'package:app1/dashbord/authority_dashboard.dart';
+import 'package:app1/widgets/utils.dart';
 import 'package:app1/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,15 +9,14 @@ import 'package:email_validator/email_validator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AddLawyer extends StatefulWidget {
-  const AddLawyer({super.key});
+class AddAuthority extends StatefulWidget {
+  const AddAuthority({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
-  _AddLawyerState createState() => _AddLawyerState();
+  _AddAuthorityState createState() => _AddAuthorityState();
 }
 
-class _AddLawyerState extends State<AddLawyer> {
+class _AddAuthorityState extends State<AddAuthority> {
   bool loading = false;
   final _formKey = GlobalKey<FormState>();
   final _auth = FirebaseAuth.instance;
@@ -29,14 +28,11 @@ class _AddLawyerState extends State<AddLawyer> {
   String? _passError;
   String? _pass2Error;
   String? _emailError;
-  
-
   bool _passwordVisible = false;
   bool _passwordVisible2 = false;
 
   @override
   void initState() {
-    super.initState();
     _passwordVisible = true;
     _passwordVisible2 = true;
     loading = false;
@@ -75,17 +71,17 @@ class _AddLawyerState extends State<AddLawyer> {
                         height: 760,
                       ),
                       Positioned(
-                        left: -200,
-                        top: 192,
+                        left: -210,
+                        top: 230,
                         child: SizedBox(
                           width: 800,
                           height: 122,
                           child: Text(
-                            'Add New Lawyer',
+                            'Add New Authority',
                             textAlign: TextAlign.center,
                             style: GoogleFonts.inriaSans(
                               color: const Color(0xFF182448),
-                              fontSize: 40,
+                              fontSize: 30,
                               fontWeight: FontWeight.w700,
                               height: 0,
                             ),
@@ -102,7 +98,7 @@ class _AddLawyerState extends State<AddLawyer> {
                             autocorrect: true,
                             controller: emailController,
                             decoration: InputDecoration(
-                              labelText: 'Lawyers Email',
+                              labelText: 'Authority Email',
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(15)),
                               errorText: _emailError,
@@ -265,13 +261,13 @@ class _AddLawyerState extends State<AddLawyer> {
   postDetailsToFirestore(String email, String role) async {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     var user = _auth.currentUser;
-    CollectionReference ref = firebaseFirestore.collection('lawyers');
+    CollectionReference ref = firebaseFirestore.collection('authorities');
     ref.doc(user!.email).set({'id': user.uid.toString(), 'role': role, 'ids': DateTime.now().millisecondsSinceEpoch.toString() });
     Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const AuthorityDashboard(),));
-    utils().toastMessage("Lawyer Added");
+        context,
+        MaterialPageRoute(
+          builder: (context) => const AuthorityDashboard(),));
+    utils().toastMessage("Authority Added");
   }
 }
 

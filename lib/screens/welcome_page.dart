@@ -1,6 +1,6 @@
-import 'package:app1/signin/Client_Sign_In_Page.dart';
-import 'package:app1/signin/client_sign_up_page.dart';
-import 'package:app1/signin/phone_login.dart';
+import 'package:app1/Screens/Client_Sign_In_Page.dart';
+import 'package:app1/Screens/client_sign_up_page.dart';
+import 'package:app1/Screens/phone_login.dart';
 import 'package:app1/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 

@@ -12,12 +12,18 @@ class ViewRegisteredUsersScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
+          SizedBox(height: 10,),
+          Text("Clients", style: TextStyle(fontSize: 18),),
           Expanded(
             child: _buildUserList('clients'),
           ),
+          SizedBox(height: 10,),
+          Text("Lawyers", style: TextStyle(fontSize: 18),),
           Expanded(
             child: _buildUserList('lawyers'),
           ),
+          SizedBox(height: 10,),
+          Text("Authorities", style: TextStyle(fontSize: 18),),
           Expanded(
             child: _buildUserList('authorities'),
           ),

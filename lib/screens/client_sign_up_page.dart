@@ -1,7 +1,7 @@
 
-import 'package:app1/signin/Client_Sign_In_Page.dart';
+import 'package:app1/Screens/Client_Sign_In_Page.dart';
 
-import 'package:app1/utils.dart';
+import 'package:app1/widgets/utils.dart';
 import 'package:app1/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';

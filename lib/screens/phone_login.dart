@@ -1,9 +1,8 @@
 import 'package:app1/dashbord/client_dahboard.dart';
-
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:app1/utils.dart';
+import 'package:app1/widgets/utils.dart';
 
 
 class VerifyScreen extends StatefulWidget {
