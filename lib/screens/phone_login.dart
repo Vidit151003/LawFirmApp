@@ -1,4 +1,4 @@
-import 'package:app1/dashbord/client_dahboard.dart';
+import 'package:app1/dashbord/client_dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

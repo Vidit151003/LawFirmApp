@@ -1,5 +1,4 @@
 
-import 'package:app1/chat/chatmanage.dart';
 import 'package:app1/Screens/registeruser.dart';
 import 'package:app1/Screens/welcome_page.dart';
 import 'package:flutter/material.dart';
@@ -75,7 +74,7 @@ class AuthorityDashboard extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const ChatManagementScreen(),
+                            builder: (context) => WelcomePage(),
                           ),
                         );
                       },

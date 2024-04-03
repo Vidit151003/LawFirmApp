@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../dashbord/client_dahboard.dart';
+import '../dashbord/client_dashboard.dart';
 
 class ClientSignInPage extends StatefulWidget {
   const ClientSignInPage({super.key});

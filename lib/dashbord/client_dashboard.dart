@@ -1,4 +1,4 @@
-import 'package:app1/chat/chat.dart';
+
 import 'package:app1/Screens/welcome_page.dart';
 import 'package:flutter/material.dart';
 
@@ -71,7 +71,7 @@ class ClientDashboard extends StatelessWidget {
                     InkWell(
                       onTap: () => Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const ChatScreen(currentUserID: 'currentUserID', chatUserID: 'chatUserID')),
+                        MaterialPageRoute(builder: (context) => WelcomePage()),
                       ),
                       child: SizedBox(
                           height:165,
