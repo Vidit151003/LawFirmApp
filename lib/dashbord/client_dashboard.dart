@@ -1,4 +1,5 @@
 
+import 'package:app1/Screens/registeruser.dart';
 import 'package:app1/Screens/welcome_page.dart';
 import 'package:flutter/material.dart';
 
@@ -71,7 +72,7 @@ class ClientDashboard extends StatelessWidget {
                     InkWell(
                       onTap: () => Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => WelcomePage()),
+                        MaterialPageRoute(builder: (context) => ViewRegisteredUsersScreen()),
                       ),
                       child: SizedBox(
                           height:165,

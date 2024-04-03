@@ -38,7 +38,9 @@ class _ChatPageState extends State<ChatPage> {
             Expanded(
               child: _buildMessageList(),
             ),
-            _buildMessageInput(),
+
+             _buildMessageInput(),
+
           ],
         ));
   }
@@ -57,16 +59,11 @@ class _ChatPageState extends State<ChatPage> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Text("Loading...");
         }
-        if (!snapshot.hasData) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        }
         return ListView(
-          children: snapshot.data!.docs
-              .map((document) => _buildMessageItem(document))
-              .toList(),
-        );
+            children: snapshot.data!.docs
+                .map((document) => _buildMessageItem(document))
+                .toList(),
+          );
       },
     );
   }
@@ -81,7 +78,8 @@ class _ChatPageState extends State<ChatPage> {
         : Alignment.centerLeft;
 
     return Container(
-        // alignment: alignment,
+        color: Colors.blueAccent,
+        alignment: alignment,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -89,9 +87,10 @@ class _ChatPageState extends State<ChatPage> {
                   (data['senderId'] == _firebaseAuth.currentUser!.uid)
                       ? CrossAxisAlignment.start
                       : CrossAxisAlignment.end,
-              mainAxisAlignment:  (data['senderId'] == _firebaseAuth.currentUser!.uid)
-                  ? MainAxisAlignment.start
-                  : MainAxisAlignment.end,
+              mainAxisAlignment:
+                  (data['senderId'] == _firebaseAuth.currentUser!.uid)
+                      ? MainAxisAlignment.start
+                      : MainAxisAlignment.end,
               children: [
                 Text(data['senderId']),
                 Text(data['message']),

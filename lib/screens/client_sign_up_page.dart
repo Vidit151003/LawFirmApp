@@ -301,7 +301,7 @@ class _SignUpPageState extends State<SignUpPage> {
     var user = _auth.currentUser;
     CollectionReference ref = firebaseFirestore.collection('clients');
     await ref.doc(user!.email).set({
-      'id': user.uid.toString(),
+      'uid': user.uid.toString(),
       'role': role,
       'ids': DateTime.now().millisecondsSinceEpoch.toString(),
       'email': email, // Adding the email field

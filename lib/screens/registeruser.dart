@@ -1,4 +1,5 @@
 import 'package:app1/chat/chat_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -57,12 +58,13 @@ class ViewRegisteredUsersScreen extends StatelessWidget {
             final user = users[index].data() as Map<String, dynamic>;
             // Assuming you have 'email' field in each document
             final email = user['email'] ?? 'No Email'; // Handling null value
+            final uid =user['uid'] ?? 'No UID'; // Handling null value
             return ListTile(
                 title: Text(email),
                 onTap: () {
                   Navigator.push((context), MaterialPageRoute(builder: (context)
                   =>
-                      ChatPage(receiverUserId: user['email'])
+                      ChatPage(receiverUserId: uid.toString())
                   )
                   );
                 }

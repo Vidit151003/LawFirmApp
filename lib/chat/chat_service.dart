@@ -19,19 +19,19 @@ class ChatService extends ChangeNotifier {
 
     List<String> ids = [currentuserId, receiverId];
     ids.sort();
-    String chatRoomId = ids.join("_");
+    String chatRoomId = ids.join('_');
 
     await _firestore
         .collection('chat_rooms')
         .doc(chatRoomId)
-        .collection('message')
+        .collection('messages')
         .add(newMessage.toMap());
   }
 
   Stream<QuerySnapshot> getMessage(String userId, String otheruserId) {
     List<String> ids = [userId, otheruserId];
     ids.sort();
-    String chatRoomId = ids.join("_");
+    String chatRoomId = ids.join('_');
 
     return _firestore
         .collection('chat_rooms')
