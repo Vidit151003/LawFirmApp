@@ -1,4 +1,5 @@
 
+import 'package:app1/widgets/auth_gate.dart';
 import 'package:app1/widgets/firebase_options.dart';
 import 'package:app1/Screens/welcome_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -32,16 +33,6 @@ void main() async {
   runApp(const UpScale());
 }
 
-bool checkUserLoginStatus() {
-  final FirebaseAuth auth = FirebaseAuth.instance;
-  final User? user = auth.currentUser;
-
-  if (user != null) {
-    return true;
-  } else {
-    return false;
-  }
-}
 
 class UpScale extends StatelessWidget {
   const UpScale({super.key});
@@ -58,12 +49,14 @@ class UpScale extends StatelessWidget {
         useMaterial3: true,
       ),
       home: AnimatedSplashScreen(
-        duration: 500,
+        duration: 1500,
         splash: Image.asset('assets/images/logo.png'),
         splashIconSize: double.infinity,
-        nextScreen: WelcomePage(),
+        nextScreen: Auth_Gate(),
         splashTransition: SplashTransition.fadeTransition,
       ),
     );
   }
 }
+
+

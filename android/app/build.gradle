@@ -1,3 +1,4 @@
+
 plugins {
     id 'com.android.application'
     id "kotlin-android"
@@ -66,10 +67,10 @@ flutter {
 }
 
 dependencies {
-        // Import the BoM for the Firebase platform
+    // Import the BoM for the Firebase platform
 
-        // Add the dependency for the Firebase Authentication library
-        // When using the BoM, you don't specify versions in Firebase library dependencies
+    // Add the dependency for the Firebase Authentication library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation("com.google.firebase:firebase-auth")
     implementation 'com.google.firebase:firebase-appcheck-debug:16.0.0-beta01'
     implementation platform('com.google.firebase:firebase-bom:32.7.0')

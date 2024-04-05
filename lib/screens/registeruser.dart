@@ -62,11 +62,11 @@ class ViewRegisteredUsersScreen extends StatelessWidget {
             return ListTile(
                 title: Text(email),
                 onTap: () {
-                  Navigator.push((context), MaterialPageRoute(builder: (context)
+                  /*Navigator.push((context), MaterialPageRoute(builder: (context)
                   =>
                       ChatPage(receiverUserId: uid.toString())
                   )
-                  );
+                  );*/
                 }
               // Add more fields if needed
             );

@@ -7,8 +7,10 @@ import 'package:flutter/widgets.dart';
 
 class ChatPage extends StatefulWidget {
   final String receiverUserId;
+  final String senderUserId;
 
-  const ChatPage({super.key, required this.receiverUserId});
+  const ChatPage(
+      {super.key, required this.receiverUserId, required this.senderUserId});
 
   @override
   State<ChatPage> createState() => _ChatPageState();
@@ -17,12 +19,11 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   final TextEditingController _messagecontroller = new TextEditingController();
   final ChatService _chatService = ChatService();
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   void sendMessage() async {
     if (_messagecontroller.text.isNotEmpty) {
       await _chatService.sendMessage(
-          widget.receiverUserId, _messagecontroller.text);
+          widget.senderUserId, widget.receiverUserId, _messagecontroller.text);
       _messagecontroller.clear();
     }
   }
@@ -38,9 +39,7 @@ class _ChatPageState extends State<ChatPage> {
             Expanded(
               child: _buildMessageList(),
             ),
-
-             _buildMessageInput(),
-
+            _buildMessageInput(),
           ],
         ));
   }
@@ -48,8 +47,8 @@ class _ChatPageState extends State<ChatPage> {
   //build message list
   Widget _buildMessageList() {
     return StreamBuilder<QuerySnapshot>(
-      stream: _chatService.getMessage(
-          widget.receiverUserId, _firebaseAuth.currentUser!.uid),
+      stream:
+          _chatService.getMessage(widget.receiverUserId, widget.senderUserId),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Center(
@@ -60,10 +59,10 @@ class _ChatPageState extends State<ChatPage> {
           return const Text("Loading...");
         }
         return ListView(
-            children: snapshot.data!.docs
-                .map((document) => _buildMessageItem(document))
-                .toList(),
-          );
+          children: snapshot.data!.docs
+              .map((document) => _buildMessageItem(document))
+              .toList(),
+        );
       },
     );
   }
@@ -73,7 +72,7 @@ class _ChatPageState extends State<ChatPage> {
     Map<String, dynamic> data = document.data() as Map<String, dynamic>;
 
 // alignement message
-    var alignment = (data['senderId'] == _firebaseAuth.currentUser!.uid)
+    var alignment = (data['senderId'] == widget.senderUserId)
         ? Alignment.centerRight
         : Alignment.centerLeft;
 
@@ -83,14 +82,12 @@ class _ChatPageState extends State<ChatPage> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
-              crossAxisAlignment:
-                  (data['senderId'] == _firebaseAuth.currentUser!.uid)
-                      ? CrossAxisAlignment.start
-                      : CrossAxisAlignment.end,
-              mainAxisAlignment:
-                  (data['senderId'] == _firebaseAuth.currentUser!.uid)
-                      ? MainAxisAlignment.start
-                      : MainAxisAlignment.end,
+              crossAxisAlignment: (data['senderId'] == widget.senderUserId)
+                  ? CrossAxisAlignment.start
+                  : CrossAxisAlignment.end,
+              mainAxisAlignment: (data['senderId'] == widget.senderUserId)
+                  ? MainAxisAlignment.start
+                  : MainAxisAlignment.end,
               children: [
                 Text(data['senderId']),
                 Text(data['message']),

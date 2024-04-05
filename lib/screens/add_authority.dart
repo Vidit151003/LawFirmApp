@@ -262,7 +262,7 @@ class _AddAuthorityState extends State<AddAuthority> {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     var user = _auth.currentUser;
     CollectionReference ref = firebaseFirestore.collection('authorities');
-    ref.doc(user!.email).set({'id': user.uid.toString(), 'role': role, 'ids': DateTime.now().millisecondsSinceEpoch.toString() });
+    ref.doc(user!.email).set({'uid': user.uid.toString(), 'role': role, 'ids': DateTime.now().millisecondsSinceEpoch.toString() });
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(

@@ -266,7 +266,7 @@ class _AddLawyerState extends State<AddLawyer> {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     var user = _auth.currentUser;
     CollectionReference ref = firebaseFirestore.collection('lawyers');
-    ref.doc(user!.email).set({'id': user.uid.toString(), 'role': role, 'ids': DateTime.now().millisecondsSinceEpoch.toString() });
+    ref.doc(user!.email).set({'uid': user.uid.toString(), 'role': role, 'ids': DateTime.now().millisecondsSinceEpoch.toString() });
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(

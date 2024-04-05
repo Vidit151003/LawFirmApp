@@ -1,6 +1,7 @@
 
 import 'package:app1/Screens/registeruser.dart';
 import 'package:app1/Screens/welcome_page.dart';
+import 'package:app1/screens/client_request_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../Screens/add_authority.dart';
@@ -61,7 +62,7 @@ class AuthorityDashboard extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const ViewRegisteredUsersScreen(),
+                            builder: (context) => const client_request_screen(),
                           ),
                         );
                       },
