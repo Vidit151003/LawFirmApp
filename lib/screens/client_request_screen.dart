@@ -69,8 +69,7 @@ class client_request_screen extends StatelessWidget {
 
   Widget selectLawyer(String clientId) {
     var selectedLawyer=0;
-        return DropdownMenu(dropdownMenuEntries:
-        dropdownMenuEntries; StreamBuilder<QuerySnapshot>(
+        return StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance.collection('lawyers').snapshots(),
             builder: (context, snapshot) {
               List<DropdownMenuItem> lawyerItems = [];
