@@ -1,4 +1,5 @@
 
+import 'package:app1/screens/client_request_screen.dart';
 import 'package:app1/widgets/auth_gate.dart';
 import 'package:app1/widgets/firebase_options.dart';
 import 'package:app1/Screens/welcome_page.dart';
@@ -52,7 +53,7 @@ class UpScale extends StatelessWidget {
         duration: 1500,
         splash: Image.asset('assets/images/logo.png'),
         splashIconSize: double.infinity,
-        nextScreen: Auth_Gate(),
+        nextScreen: client_request_screen(),//Auth_Gate(),
         splashTransition: SplashTransition.fadeTransition,
       ),
     );
