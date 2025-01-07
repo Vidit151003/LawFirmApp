@@ -1,3 +1,5 @@
+import 'dart:js_util';
+
 import 'package:app1/widgets/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -165,22 +167,11 @@ class OvalButtonColor extends StatelessWidget {
   }
 }
 
-/*
-
-class BuildUserList extends StatelessWidget {
-  final Ontap;
-  final String collection;
-  const BuildUserList({super.key, required this.collection, required this.Ontap});
-
-  @override
-  Widget build(BuildContext context) {
-    return _buildUserList(collection);
-  }
-*/
 
 class LawyerDropDown extends StatefulWidget {
-  const LawyerDropDown({super.key, required this.clientId});
+  const LawyerDropDown({super.key, required this.clientId, required this.clientemail});
   final String clientId;
+  final String clientemail;
 
   @override
   _LawyerDropDownState createState() => _LawyerDropDownState();
@@ -188,7 +179,21 @@ class LawyerDropDown extends StatefulWidget {
 
 class _LawyerDropDownState extends State<LawyerDropDown> {
   String? selectedLawyer; // Stores the selected lawyer's ID
-  String? uid; // Stores the UID of the selected lawyer
+  String? uid;
+  var _firestore = FirebaseFirestore.instance.collection('requests'); // Firestore reference
+
+  @override
+  void initState() {
+    super.initState();
+    _loadAssignedLawyer();
+  }
+
+  Future<void> _loadAssignedLawyer() async {
+    String? lawyer = await getAssignedLawyer(widget.clientemail);
+    setState(() {
+      selectedLawyer = lawyer; // Set the initial value for the dropdown
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -207,16 +212,16 @@ class _LawyerDropDownState extends State<LawyerDropDown> {
 
         // Build dropdown items
         List<DropdownMenuItem<String>> lawyerItems = [
-          const DropdownMenuItem<String>(
+          DropdownMenuItem<String>(
             value: null,
-            child: Text("Assign Lawyer"),
+            child: const Text("Assign Lawyer"),
           ),
           ...lawyers.map((lawyer) {
             return DropdownMenuItem<String>(
               value: lawyer.id,
               child: Text(lawyer['email'] ?? "No email"),
             );
-          }).toList(),
+          }),
         ];
 
         return SizedBox(
@@ -228,10 +233,10 @@ class _LawyerDropDownState extends State<LawyerDropDown> {
             hint: const Text("Select a Lawyer"),
             onChanged: (lawyerId) {
               setState(() {
-                selectedLawyer = lawyerId; // Update selected lawyer
+                selectedLawyer = lawyerId;
+                _firestore.doc(widget.clientemail).set({'assignedLawyer': lawyerId}); // Update selected lawyer
                 if (lawyerId != null) {
-                  var lawyerDoc =
-                  lawyers.firstWhere((lawyer) => lawyer.id == lawyerId);
+                  var lawyerDoc = lawyers.firstWhere((lawyer) => lawyer.id == lawyerId);
                   uid = lawyerDoc['uid']; // Retrieve UID of the selected lawyer
 
                   // Navigate to ChatPage
@@ -239,8 +244,8 @@ class _LawyerDropDownState extends State<LawyerDropDown> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => ChatPage(
-                        receiverUserId: uid!,
-                        senderUserId: widget.clientId,
+                        receiverUserId: widget.clientId.toString(),
+                        senderUserId: uid!.toString(),
                       ),
                     ),
                   );
@@ -254,42 +259,22 @@ class _LawyerDropDownState extends State<LawyerDropDown> {
   }
 }
 
+Future<String?> getAssignedLawyer(String clientEmail) async {
+  try {
+    // Access the Firestore document using the client's email
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+        .collection('requests')
+        .doc(clientEmail)
+        .get();
 
-
-
-  Widget _buildUserList(String collection) {
-    return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection(collection).snapshots(),
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return Center(
-            child: Text('Error: ${snapshot.error}'),
-          );
-        }
-
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-
-        final users = snapshot.data!.docs;
-
-        return ListView.builder(
-          itemCount: users.length,
-          itemBuilder: (BuildContext context, int index) {
-            final user = users[index].data() as Map<String, dynamic>;
-            // Assuming you have 'email' field in each document
-            final email = user['email'] ?? 'No Email'; // Handling null value
-            final uid =user['uid'] ?? 'No UID'; // Handling null value
-            return ListTile(
-                title: Text(email),
-                onTap: null,
-              // Add more fields if needed
-            );
-          },
-        );
-      },
-    );
+    // Safely access and return the assigned lawyer if it exists, otherwise return null
+    if (snapshot.exists && snapshot.data() != null) {
+      final data = snapshot.data() as Map<String, dynamic>;
+      return data['assignedLawyer'] != null ? data['assignedLawyer'] as String : null;
+    }
+    return null;
+  } catch (e) {
+    print('Error fetching assigned lawyer: $e');
+    return null;
   }
-
+}

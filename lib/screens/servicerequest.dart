@@ -28,8 +28,8 @@ class _ServiceRequestPageState extends State<ServiceRequestPage> {
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
       FirebaseFirestore.instance
-          .collection('requests')
-          .add({
+          .collection('requests').doc(email)
+          .set({
             'email': email,
             'uid': uid,
             'name': _nameController.text,

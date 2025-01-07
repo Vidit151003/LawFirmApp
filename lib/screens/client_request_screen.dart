@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class client_request_screen extends StatelessWidget {
-   client_request_screen({super.key});
+  client_request_screen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -48,67 +48,33 @@ class client_request_screen extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             final request = requests[index].data() as Map<String, dynamic>;
             // Assuming you have 'email' field in each document
-            final email= request['email']??'No email';
+            final email = request['email'] ?? 'No email';
             final subject =
-                request['subject'] ?? 'No Subject'; // Handling null value// Handling null value
+                request['subject'] ??
+                    'No Subject'; // Handling null value// Handling null value
             final uid = request['uid'] ?? 'No UID'; // Handling null value
             final description = request['description'] ??
                 'No Description'; // Handling null value
             return ListTile(
-                title: Text(email +":"+subject),
-                focusNode: FocusNode(debugLabel: description),
-                trailing: LawyerDropDown(clientId: uid,),
-                onTap: () {
-                  LawyerDropDown(clientId: uid,);
-                },
-                // Add more fields if needed
+              title: Text(email + ":" + subject),
+              focusNode: FocusNode(debugLabel: description),
+              trailing: LawyerDropDown(clientId: uid, clientemail: email,),
+              onTap: () {
+                var adminuid = FirebaseAuth.instance.currentUser!.uid;
+                // Navigate to chat page when user taps on a request
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        ChatPage(senderUserId: adminuid, receiverUserId: uid,),
+                  ),
                 );
+              },
+              // Add more fields if needed
+            );
           },
         );
       },
     );
-  }
-
-  Widget selectLawyer(String clientId) {
-    var selectedLawyer = 0;
-    return Column(
-        mainAxisAlignment: MainAxisAlignment.start, children: [
-      StreamBuilder<QuerySnapshot>(
-          stream: FirebaseFirestore.instance.collection('lawyers').snapshots(),
-          builder: (context, snapshot) {
-            List<DropdownMenuItem> lawyerItems = [];
-            var uid;
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return CircularProgressIndicator();
-            }
-            if (snapshot.hasData) {
-              final lawyers = snapshot.data?.docs.toList();
-              lawyerItems.add(
-                  DropdownMenuItem(value: 0, child: Text("Assign Lawyer")));
-              for (var lawyer in lawyers!) {
-                lawyerItems.add(DropdownMenuItem(
-                  value: lawyer.id,
-                  child: Text(lawyer['name']??'No Name'),
-                ));
-                uid = lawyer['uid']??'No UID';
-              }
-            }
-            return DropdownButton(
-              items: lawyerItems,
-              onChanged: (lawyervalue) {
-                selectedLawyer = lawyervalue;
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ChatPage(
-                            receiverUserId: clientId.toString(),
-                            senderUserId: uid.toString(),
-                          )),
-                );
-              },
-              value: selectedLawyer,
-            );
-          })
-    ]);
   }
 }
