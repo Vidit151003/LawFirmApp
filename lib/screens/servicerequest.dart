@@ -1,3 +1,6 @@
+import 'dart:ffi';
+
+import 'package:app1/widgets/utils.dart';
 import 'package:app1/widgets/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -6,9 +9,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class ServiceRequestPage extends StatefulWidget {
   final String userEmail;
 
-  ServiceRequestPage({required this.userEmail});
+  const ServiceRequestPage({super.key, required this.userEmail});
 
   @override
+  // ignore: library_private_types_in_public_api
   _ServiceRequestPageState createState() => _ServiceRequestPageState();
 }
 
@@ -19,33 +23,43 @@ class _ServiceRequestPageState extends State<ServiceRequestPage> {
   final TextEditingController _descriptionController = TextEditingController();
 
   String? _selectedField;
-  List<String> _fields = ['Money Matters', 'Criminal', 'Consultation'];
+  final List<String> _fields = ['Money Matters', 'Criminal', 'Consultation'];
 
   String _selectedStatus = 'Pending'; // Default status is set to 'Pending'
   String? uid = FirebaseAuth.instance.currentUser!.uid;
   String? email = FirebaseAuth.instance.currentUser!.email;
 
   void _submitForm() {
-    if (_formKey.currentState!.validate()) {
-      FirebaseFirestore.instance
-          .collection('requests').doc(email)
-          .set({
-            'email': email,
-            'uid': uid,
-            'name': _nameController.text,
-            'subject': _subjectController.text,
-            'description': _descriptionController.text,
-            'field': _selectedField,
-            'status': _selectedStatus,
-            'timestamp': Timestamp.now(),
-          })
-          .then((value) => _showSuccessSnackBar())
-          .catchError((error) => _showFailureSnackBar(error));
-    }
+  if (_formKey.currentState!.validate()) {
+    utils().toastMessage('Submitting request');
+    List<String> ids = [email.toString(), _subjectController.text];
+    String requestId = ids.join('_');// Debug log
+    FirebaseFirestore.instance
+        .collection('requests').doc(requestId)
+        .set({
+          'uid': uid,
+          'email': email,
+          'name': _nameController.text,
+          'subject': _subjectController.text,
+          'description': _descriptionController.text,
+          'field': _selectedField,
+          'status': _selectedStatus,
+          'timestamp': Timestamp.now(),
+          'assignedLawyerId': null,
+        })
+        .then((value) {
+          print('Request submitted successfully'); // Debug log
+          _showSuccessSnackBar();
+        })
+        .catchError((error) {
+          print('Failed to submit request: $error'); // Debug log
+          _showFailureSnackBar(error);
+        });
   }
+}
 
   void _showSuccessSnackBar() {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
       content: Text('Request submitted successfully'),
     ));
     _resetForm();
@@ -73,10 +87,10 @@ class _ServiceRequestPageState extends State<ServiceRequestPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Service Request'),
+        title: const Text('Service Request'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
           child: ListView(
@@ -91,7 +105,7 @@ class _ServiceRequestPageState extends State<ServiceRequestPage> {
                 validator: (value) =>
                     value!.isEmpty ? 'Please enter your name' : null,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               TextFormField(
@@ -104,7 +118,7 @@ class _ServiceRequestPageState extends State<ServiceRequestPage> {
                 validator: (value) =>
                     value!.isEmpty ? 'Please enter subject' : null,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               TextFormField(
@@ -117,7 +131,7 @@ class _ServiceRequestPageState extends State<ServiceRequestPage> {
                 validator: (value) =>
                     value!.isEmpty ? 'Please enter description' : null,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               DropdownButtonFormField<String>(
@@ -135,8 +149,8 @@ class _ServiceRequestPageState extends State<ServiceRequestPage> {
                     ),
                     hintText: 'Select Field'),
               ),
-              SizedBox(height: 20.0),
-              SizedBox(
+              const SizedBox(height: 20.0),
+              const SizedBox(
                 height: 20,
               ),
               OvalButtonSmall(

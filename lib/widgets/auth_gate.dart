@@ -1,16 +1,15 @@
-import 'dart:html';
 
 import 'package:app1/Screens/welcome_page.dart';
-import 'package:app1/dashbord/authority_dashboard.dart';
-import 'package:app1/dashbord/client_dashboard.dart';
-import 'package:app1/dashbord/lawyer_dashboard.dart';
+import 'package:app1/dashboard/authority_dashboard.dart';
+import 'package:app1/dashboard/client_dashboard.dart';
+import 'package:app1/dashboard/lawyer_dashboard.dart';
 import 'package:app1/widgets/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class Auth_Gate extends StatelessWidget {
-  Auth_Gate({super.key});
+class AuthGate extends StatelessWidget {
+  AuthGate({super.key});
 
   final ref = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
@@ -22,21 +21,21 @@ class Auth_Gate extends StatelessWidget {
         stream: ref.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            Future.delayed(Duration(seconds: 4));
+            Future.delayed(const Duration(seconds: 4));
             String role = findRole().toString();
-            Future.delayed(Duration(seconds: 2));
+            Future.delayed(const Duration(seconds: 2));
             if (role == "client") {
-              return ClientDashboard(userEmail: '',);
+              return const ClientDashboard(userEmail: '',);
             } else if (role == "lawyer") {
-              return LawyerDashboard();
+              return const LawyerDashboard();
             } else if (role == "authority") {
-              return AuthorityDashboard();
+              return const AuthorityDashboard();
             } else {
               utils().toastMessage(role.toString());
-              return WelcomePage();
+              return const WelcomePage();
             }
           } else {
-            return WelcomePage();
+            return const WelcomePage();
           }
         },
       ),

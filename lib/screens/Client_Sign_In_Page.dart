@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:app1/Screens/ForgotPassword.dart';
-import 'package:app1/dashbord/authority_dashboard.dart';
+import 'package:app1/Screens/forgot_password.dart';
+import 'package:app1/dashboard/authority_dashboard.dart';
 import 'package:app1/Screens/client_sign_up_page.dart';
-import 'package:app1/dashbord/lawyer_dashboard.dart';
+import 'package:app1/dashboard/lawyer_dashboard.dart';
 import 'package:app1/widgets/utils.dart';
 import 'package:app1/widgets/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,12 +10,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../dashbord/client_dashboard.dart';
+import '../dashboard/client_dashboard.dart';
 
 class ClientSignInPage extends StatefulWidget {
-  const ClientSignInPage({Key? key});
+  const ClientSignInPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _ClientSignIn createState() => _ClientSignIn();
 }
 
@@ -217,7 +218,7 @@ class _ClientSignIn extends State<ClientSignInPage> {
                               builder: (context) =>
                                   const ForgotPasswordPage()));
                     },
-                    child: Text(
+                    child: const Text(
                       "Forgot Password",
                     ),
                   ),
@@ -239,9 +240,9 @@ void checkData(String? email) async {
     if (clientSnapshot.exists) {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ClientDashboard(userEmail: email ?? '')));
     } else if (lawyerSnapshot.exists) {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LawyerDashboard()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LawyerDashboard()));
     } else if (authoritySnapshot.exists) {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AuthorityDashboard()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const AuthorityDashboard()));
     } else {
       utils().toastMessage("User Data not Found");
     }

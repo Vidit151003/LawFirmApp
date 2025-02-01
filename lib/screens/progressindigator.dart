@@ -86,113 +86,24 @@
 //     );
 //   }
 // }
-import 'package:app1/widgets/widgets.dart';
+import 'package:app1/widgets/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-// class ProgressUpdateScreen extends StatefulWidget {
-//   final String petitionId;
-//   final Map<String, dynamic> petitionData;
-
-//   ProgressUpdateScreen({required this.petitionId, required this.petitionData});
-
-//   @override
-//   _ProgressUpdateScreenState createState() => _ProgressUpdateScreenState();
-// }
-
-// class _ProgressUpdateScreenState extends State<ProgressUpdateScreen> {
-//   late String _selectedStatus;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     _selectedStatus = widget.petitionData['status'] ?? 'Pending';
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Update Progress'),
-//       ),
-//       body: Padding(
-//         padding: EdgeInsets.all(16.0),
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             Text(
-//               'Petition ID: ${widget.petitionId}',
-//               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-//             ),
-//             SizedBox(height: 20),
-//             DropdownButtonFormField<String>(
-//               value: _selectedStatus,
-//               items: [
-//                 'Pending',
-//                 'Receive the Legal Request',
-//                 'Review the Submitted Query',
-//                 'Allocate Legal Resources',
-//                 'Review the Request in Detail',
-//                 'Communicate and Collaborate',
-//               ].map((status) {
-//                 return DropdownMenuItem(
-//                   value: status,
-//                   child: Text(status),
-//                 );
-//               }).toList(),
-//               onChanged: (value) {
-//                 setState(() {
-//                   _selectedStatus = value!;
-//                 });
-//               },
-//               decoration: InputDecoration(labelText: 'Select Status'),
-//             ),
-//             SizedBox(height: 20),
-// ElevatedButton(
-//   onPressed: () async {
-//     try {
-//       print('Updating status for document ID: ${widget.petitionId}');
-//       print('Client ID: ${widget.petitionData['client_id']}');
-
-//       await FirebaseFirestore.instance
-//           .collection('clients')
-//           .doc(widget.petitionData['client_id'])
-//           .collection('requests')
-//           .doc(widget.petitionId)
-//           .set({'status': _selectedStatus});
-
-//       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-//         content: Text('Status updated successfully'),
-//       ));
-//     } catch (error) {
-//       print('Error updating status: $error');
-//       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-//         content: Text('Failed to update status: $error'),
-//       ));
-//     }
-//   },
-//   child: Text('Update Status'),
-// ),
-
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
 
 class ProgressUpdateScreen extends StatefulWidget {
   final String petitionId;
   final Map<String, dynamic> petitionData;
   final String clientId; // Add clientId to the constructor
 
-  ProgressUpdateScreen({
+  const ProgressUpdateScreen({super.key, 
     required this.petitionId,
     required this.petitionData,
     required this.clientId, // Accept clientId as a parameter
   });
 
   @override
+  // ignore: library_private_types_in_public_api
   _ProgressUpdateScreenState createState() => _ProgressUpdateScreenState();
 }
 
@@ -209,25 +120,25 @@ class _ProgressUpdateScreenState extends State<ProgressUpdateScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Update Progress'),
+        title: const Text('Update Progress'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'Petition ID: ${widget.petitionId}',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(35)
               ),
               child: DropdownButtonHideUnderline(
                 child: ButtonTheme(
-                  colorScheme: ColorScheme.light(),
+                  colorScheme: const ColorScheme.light(),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
                   alignedDropdown: true,
                   child: DropdownButtonFormField<String>(
@@ -248,7 +159,7 @@ class _ProgressUpdateScreenState extends State<ProgressUpdateScreen> {
                           ),
                           child: Text(status,
                               style:
-                                  TextStyle(fontSize: 12, fontStyle: FontStyle.italic)),
+                                  const TextStyle(fontSize: 12, fontStyle: FontStyle.italic)),
                         ),
                       );
                     }).toList(),
@@ -268,7 +179,7 @@ class _ProgressUpdateScreenState extends State<ProgressUpdateScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             SizedBox(
               height: 45,
               width: 180,
@@ -278,9 +189,9 @@ class _ProgressUpdateScreenState extends State<ProgressUpdateScreen> {
                 ),
                 onPressed: () async {
                   try {
-                    print(
+                    utils().toastMessage(
                         'Updating status for document ID: ${widget.petitionId}');
-                    print('Client ID: ${widget.petitionData['client_id']}');
+                    utils().toastMessage('Client ID: ${widget.petitionData['client_id']}');
 
                     await FirebaseFirestore.instance
                         .collection('clients')
@@ -289,17 +200,17 @@ class _ProgressUpdateScreenState extends State<ProgressUpdateScreen> {
                         .doc(widget.petitionId)
                         .update({'status': _selectedStatus});
 
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text('Status updated successfully'),
                     ));
                   } catch (error) {
-                    print('Error updating status: $error');
+                    utils().toastMessage('Error updating status: $error');
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       content: Text('Failed to update status: $error'),
                     ));
                   }
                 },
-                child: Text('Update Status',style: TextStyle(color: Colors.white, fontSize: 14),),
+                child: const Text('Update Status',style: TextStyle(color: Colors.white, fontSize: 14),),
               ),
             ),
           ],

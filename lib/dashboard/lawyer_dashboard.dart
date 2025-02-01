@@ -1,74 +1,11 @@
-import 'package:app1/Screens/registeruser.dart';
-import 'package:app1/Screens/welcome_page.dart';
 import 'package:app1/screens/UserMessageScreen.dart';
 import 'package:app1/screens/progressindigator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-// class LawyerDashboard extends StatelessWidget {
-//   const LawyerDashboard({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: const Text("Lawyer Dashboard")),
-//       body: const SingleChildScrollView(
-//         child: SafeArea(
-//           child: Padding(
-//             padding: EdgeInsets.all(15.0),
-//             child: Center(
-//               child: Text("This is Lawyer Dashboard"),
-//             ),
-//           ),
-//         ),
-//       ),
-//       floatingActionButton: Column(
-//         mainAxisAlignment: MainAxisAlignment.end,
-//         children: [
-//           SizedBox(
-//             width: 200,
-//             height: 60,
-//             child: ElevatedButton(
-//               onPressed: () {
-//                 // Navigate to the progress screen
-//                 // Add navigation to ProgressPage
-//               },
-//               child: const Text(
-//                 'Progress',
-//                 style: TextStyle(fontSize: 20),
-//               ),
-//             ),
-//           ),
-//           SizedBox(height: 20), // Adding space between buttons
-//           SizedBox(
-//             width: 200,
-//             height: 60,
-//             child: ElevatedButton(
-//               onPressed: () {
-//                 // Navigate to the chat screen
-//                 Navigator.push(
-//                   context,
-//                   MaterialPageRoute(
-//                     builder: (context) => const WelcomePage(),
-//                   ),
-//                 );
-//               },
-//               child: const Text(
-//                 'Chat',
-//                 style: TextStyle(fontSize: 20),
-//               ),
-//             ),
-//           ),
-//         ],
-//       ),
-//       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-//     );
-//   }
-// }
-// Import necessary packages and libraries
 
 class LawyerDashboard extends StatelessWidget {
-  const LawyerDashboard({Key? key});
+  const LawyerDashboard({super.key,});
 
   @override
   Widget build(BuildContext context) {
@@ -96,20 +33,20 @@ class LawyerDashboard extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ClientListScreen(),
+                    builder: (context) => const ClientListScreen(),
                   ),
                 );
               },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromRGBO(0, 65, 120, 1),
+                  backgroundColor: const Color.fromRGBO(0, 65, 120, 1),
                   elevation: 20.0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40),
                   ),
                 ),
-                child: Container(
+                child: const SizedBox(
                   height: 60,
-                  child: const Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text("Progress",style: TextStyle(fontSize: 20,color: Colors.white)),
@@ -120,7 +57,7 @@ class LawyerDashboard extends StatelessWidget {
                 )
             ),
           ),
-          SizedBox(height: 20), // Adding space between buttons
+          const SizedBox(height: 20), // Adding space between buttons
           SizedBox(
             width: 200,
             height: 60,
@@ -135,15 +72,15 @@ class LawyerDashboard extends StatelessWidget {
                 );
               },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromRGBO(0, 65, 120, 1),
+                  backgroundColor: const Color.fromRGBO(0, 65, 120, 1),
                   elevation: 20.0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40),
                   ),
                 ),
-                child: Container(
+                child: const SizedBox(
                   height: 60,
-                  child: const Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text("Chat",style: TextStyle(fontSize: 20,color: Colors.white)),
@@ -162,6 +99,8 @@ class LawyerDashboard extends StatelessWidget {
 }
 
 class ClientListScreen extends StatelessWidget {
+  const ClientListScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -170,13 +109,13 @@ class ClientListScreen extends StatelessWidget {
         stream: FirebaseFirestore.instance.collection('clients').orderBy('email', descending:false).snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
-            return Center(child: CircularProgressIndicator()); // Display a loading indicator while data is loading
+            return const Center(child: CircularProgressIndicator()); // Display a loading indicator while data is loading
           }
           return ListView(
             children: snapshot.data!.docs.map((doc) {
 
               final clientData = doc.data() as Map<String, dynamic>?; // Nullable map
-              if (clientData == null) return SizedBox(); // Skip if clientData is null
+              if (clientData == null) return const SizedBox(); // Skip if clientData is null
               return ListTile(
                 leading: CircleAvatar(child: Text(clientData['email'].toString().substring(0,1).toUpperCase()) ,),
                 title: Text(clientData['email'] ?? 'No Email'), // Use email if available, else use empty string
@@ -203,12 +142,12 @@ class ClientListScreen extends StatelessWidget {
 class PetitionsScreen extends StatelessWidget {
   final String clientId;
 
-  const PetitionsScreen({required this.clientId});
+  const PetitionsScreen({super.key, required this.clientId});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Petitions")),
+      appBar: AppBar(title: const Text("Petitions")),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection('clients')
@@ -217,7 +156,7 @@ class PetitionsScreen extends StatelessWidget {
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
           if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
@@ -226,7 +165,7 @@ class PetitionsScreen extends StatelessWidget {
             children: snapshot.data!.docs.map((doc) {
               final requestData = doc.data() as Map<String, dynamic>;
               return Card(
-                margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                 child: ListTile(
                   onTap: () {
                     // Navigate to progress update screen
@@ -241,13 +180,13 @@ class PetitionsScreen extends StatelessWidget {
                       ),
                     );
                   },
-                  title: Text(requestData['subject'] ?? '',style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),
+                  title: Text(requestData['subject'] ?? '',style: const TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Status: ${requestData['status'] ?? ''}',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),// Display status
-                      Text('Description: ${requestData['description'] ?? ''}',style: TextStyle(fontSize: 12,fontWeight: FontWeight.normal),),
-                      Text('Field: ${requestData['field'] ?? ''}',style: TextStyle(fontSize: 12,fontWeight: FontWeight.normal),),
+                      Text('Status: ${requestData['status'] ?? ''}',style: const TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),// Display status
+                      Text('Description: ${requestData['description'] ?? ''}',style: const TextStyle(fontSize: 12,fontWeight: FontWeight.normal),),
+                      Text('Field: ${requestData['field'] ?? ''}',style: const TextStyle(fontSize: 12,fontWeight: FontWeight.normal),),
                   ]
                   ),
                 ),

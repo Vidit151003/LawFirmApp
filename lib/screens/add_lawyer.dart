@@ -1,5 +1,5 @@
 
-import 'package:app1/dashbord/authority_dashboard.dart';
+import 'package:app1/dashboard/authority_dashboard.dart';
 
 import 'package:app1/widgets/utils.dart';
 import 'package:app1/widgets/widgets.dart';
@@ -231,7 +231,7 @@ class _AddLawyerState extends State<AddLawyer> {
                                       });
                                     }
                                   } catch (e) {
-                                    print(e);
+                                    utils().toastMessage(e.toString());
                                   }
                                 }
                               },

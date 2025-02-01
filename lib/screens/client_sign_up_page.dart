@@ -13,6 +13,7 @@ class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _SignUpPageState createState() => _SignUpPageState();
 }
 
@@ -226,7 +227,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                       });
                                     }
                                   } catch (e) {
-                                    print(e);
+                                    utils().toastMessage(e.toString());
                                   }
                                 }
                               },
@@ -324,6 +325,7 @@ class AdditionalInfoPage extends StatefulWidget {
   const AdditionalInfoPage({super.key, required this.userEmail});
 
   @override
+  // ignore: library_private_types_in_public_api
   _AdditionalInfoPageState createState() => _AdditionalInfoPageState();
 }
 
@@ -347,7 +349,7 @@ class _AdditionalInfoPageState extends State<AdditionalInfoPage> {
         Navigator.pop(context);
       }).catchError((error) {
         // Handle errors
-        print("Failed to save data: $error");
+        utils().toastMessage("Failed to save data: $error");
         // Optionally show an error message to the user
       });
     }

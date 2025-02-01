@@ -74,30 +74,30 @@ class ChatBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: BoxConstraints(maxWidth: 350),
+      constraints: const BoxConstraints(maxWidth: 350),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             offset: Offset(0, 3), // Shift the shadow downward (dy > 0)
-            blurRadius: 4, // Controls the softness of the shadow
+            blurRadius: 2, // Controls the softness of the shadow
             spreadRadius: 0, // Ensures no extra spread
-            color: Colors.grey.withOpacity(0.6), // Adjust the shadow color and opacity
+            color: Colors.grey, // Adjust the shadow color and opacity
           )
         ],
         color: color,
         borderRadius: sender
             ? const BorderRadius.only(
-          topLeft: Radius.circular(25),
-          topRight: Radius.circular(25),
-          bottomLeft: Radius.circular(25),
-          bottomRight: Radius.circular(2),
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+          bottomLeft: Radius.circular(20),
+          bottomRight: Radius.circular(3),
         )
             : const BorderRadius.only(
-          topLeft: Radius.circular(25),
-          topRight: Radius.circular(25),
-          bottomLeft: Radius.circular(2),
-          bottomRight: Radius.circular(25),
+          topLeft: Radius.circular(3),
+          topRight: Radius.circular(20),
+          bottomLeft: Radius.circular(20),
+          bottomRight: Radius.circular(20),
         ),
       ),
       child: Text(

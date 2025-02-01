@@ -1,6 +1,5 @@
 import 'package:app1/chat/chat_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../chat/chat_service.dart';
@@ -8,9 +7,10 @@ import '../chat/chat_service.dart';
 class ChatRoomsScreen extends StatefulWidget {
   final String userId;
 
-  ChatRoomsScreen({required this.userId});
+  const ChatRoomsScreen({super.key, required this.userId});
 
   @override
+  // ignore: library_private_types_in_public_api
   _ChatRoomsScreenState createState() => _ChatRoomsScreenState();
 }
 
@@ -28,13 +28,13 @@ class _ChatRoomsScreenState extends State<ChatRoomsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Chats'),
+        title: const Text('Chats'),
       ),
       body: StreamBuilder<List<Map<String, dynamic>>>(
         stream: _chatRoomsStream,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
 
           if (snapshot.hasError) {
@@ -44,14 +44,14 @@ class _ChatRoomsScreenState extends State<ChatRoomsScreen> {
           final chatRooms = snapshot.data ?? [];
 
           if (chatRooms.isEmpty) {
-            return Center(child: Text('No chat rooms found.'));
+            return const Center(child: Text('No chat rooms found.'));
           }
 
           return ListView.builder(
             itemCount: chatRooms.length,
             itemBuilder: (context, index) {
               final chatRoom = chatRooms[index];
-              final chatRoomId = chatRoom['chatRoomId'];
+              //final chatRoomId = chatRoom['chatRoomId'];
               final participants = chatRoom['participants'] as List<dynamic>;
               final otherUserId = participants.firstWhere((id) => id != widget.userId);
               final role = FirebaseFirestore.instance.collection('users').doc('role');

@@ -1,6 +1,4 @@
 import 'package:app1/chat/chat_page.dart';
-import 'package:app1/dashbord/lawyer_dashboard.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -16,18 +14,18 @@ class ViewRegisteredUsersScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          SizedBox(height: 10,),
-          Text("Clients", style: TextStyle(fontSize: 18),),
+          const SizedBox(height: 10,),
+          const Text("Clients", style: TextStyle(fontSize: 18),),
           Expanded(
             child: _buildUserList('clients'),
           ),
-          SizedBox(height: 10,),
-          Text("Lawyers", style: TextStyle(fontSize: 18),),
+          const SizedBox(height: 10,),
+          const Text("Lawyers", style: TextStyle(fontSize: 18),),
           Expanded(
             child: _buildUserList('lawyers'),
           ),
-          SizedBox(height: 10,),
-          Text("Authorities", style: TextStyle(fontSize: 18),),
+          const SizedBox(height: 10,),
+          const Text("Authorities", style: TextStyle(fontSize: 18),),
           Expanded(
             child: _buildUserList('authorities'),
           ),

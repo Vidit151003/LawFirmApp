@@ -1,4 +1,5 @@
 import 'package:app1/chat/chat_service.dart';
+import 'package:app1/widgets/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -56,15 +57,13 @@ class _ChatPageState extends State<ChatPage> {
         backgroundColor: Colors.white,
         title: const Text("Messages"),
       ),
-      body: Container(
-        child: Column(
-          children: [
-            Expanded(
-              child: _buildMessageList(),
-            ),
-            _buildMessageInput(),
-          ],
-        ),
+      body: Column(
+        children: [
+          Expanded(
+            child: _buildMessageList(),
+          ),
+          _buildMessageInput(),
+        ],
       ),
     );
   }
@@ -78,7 +77,7 @@ class _ChatPageState extends State<ChatPage> {
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Center(
-              child: Text("Error: " + snapshot.error.toString()),
+              child: Text("Error: ${snapshot.error}"),
             );
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -115,7 +114,7 @@ class _ChatPageState extends State<ChatPage> {
         : Alignment.centerLeft;
     var color = (data['senderId'] == widget.senderUserId)
         ? Colors.blue.shade700
-        : Colors.grey.shade200;
+        : const Color.fromRGBO(242, 242, 242, 1);
     bool sender = (data['senderId'] == widget.senderUserId);
 
     return Container(
@@ -145,51 +144,57 @@ class _ChatPageState extends State<ChatPage> {
       child: Row(
         children: [
           Expanded(
-            child: Container(
-              height: 49,
-              margin: const EdgeInsets.only(left: 5, right: 5, top: 2, bottom: 5),
-              padding: const EdgeInsets.only(left: 15, bottom: 6, top: 6, right: 15),
-              decoration: BoxDecoration(
-                color: Colors.grey.shade200,
-                borderRadius: BorderRadius.circular(35),
-                border: Border.all(color: Colors.transparent),
-              ),
-              child: Center(
-                child: TextField(
-                  controller: _messagecontroller,
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    hintText: 'Type a message',
+            child: Center(
+              child: Container(
+                height: 54,
+                margin: const EdgeInsets.only(left: 5, right: 5, top: 2, bottom: 5),
+                padding: const EdgeInsets.only(left: 15, bottom: 6, top: 2, right: 15),
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade200,
+                  borderRadius: BorderRadius.circular(35),
+                  border: Border.all(color: Colors.transparent),
+                ),
+                child: Center(
+                  child: TextField(
+                    controller: _messagecontroller,
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'Type a message',
+                    ),
                   ),
                 ),
               ),
             ),
           ),
-          Container(
-            padding: const EdgeInsets.all(4),
-            margin: const EdgeInsets.all(4),
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.black12,
-            ),
-            child: IconButton(
-              iconSize: 25,
-              icon: const Icon(Icons.attachment_outlined),
-              onPressed: () => print("Attachment pressed"),
+          Center(
+            child: Container(
+              padding: const EdgeInsets.all(4),
+              margin: const EdgeInsets.all(4),
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.black12,
+              ),
+              child: IconButton(
+                iconSize: 25,
+                icon: const Icon(Icons.attachment_outlined),
+                onPressed: () => utils().toastMessage("Attachment pressed"),
+              ),
             ),
           ),
-          Container(
-            padding: const EdgeInsets.all(4),
-            margin: const EdgeInsets.all(4),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.blue.shade700,
-            ),
-            child: IconButton(
-              color: Colors.white,
-              iconSize: 25,
-              icon: const Icon(Icons.send),
-              onPressed: sendMessage,
+          Center(
+            child: Container(
+              padding: const EdgeInsets.all(4),
+              margin: const EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.blue.shade700,
+              ),
+              child: IconButton(
+                color: Colors.white,
+                iconSize: 25,
+                icon: const Icon(Icons.send),
+                onPressed: sendMessage,
+              ),
             ),
           ),
         ],

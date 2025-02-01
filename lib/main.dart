@@ -1,18 +1,13 @@
 
-import 'package:app1/dashbord/client_dashboard.dart';
-import 'package:app1/dashbord/lawyer_dashboard.dart';
-import 'package:app1/screens/client_request_screen.dart';
-import 'package:app1/widgets/auth_gate.dart';
 import 'package:app1/widgets/firebase_options.dart';
 import 'package:app1/Screens/welcome_page.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 
 
-/* void main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await FirebaseAppCheck.instance.activate(
@@ -34,9 +29,9 @@ import 'package:firebase_app_check/firebase_app_check.dart';
     appleProvider: AppleProvider.appAttest,
   );
   runApp(const UpScale());
-}*/
+}
 
-void main() async {
+/* void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform
@@ -61,7 +56,7 @@ void main() async {
   );
   runApp(const UpScale());
 }
-
+*/
 class UpScale extends StatelessWidget {
   const UpScale({super.key});
 
@@ -80,7 +75,7 @@ class UpScale extends StatelessWidget {
         duration: 1500,
         splash: Image.asset('assets/images/logo.png'),
         splashIconSize: double.infinity,
-        nextScreen: WelcomePage(),//Auth_Gate(),
+        nextScreen: const WelcomePage(),//Auth_Gate(),
         splashTransition: SplashTransition.fadeTransition,
       ),
     );

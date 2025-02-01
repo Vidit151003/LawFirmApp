@@ -1,6 +1,6 @@
 
 
-import 'package:app1/dashbord/authority_dashboard.dart';
+import 'package:app1/dashboard/authority_dashboard.dart';
 import 'package:app1/widgets/utils.dart';
 import 'package:app1/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +13,7 @@ class AddAuthority extends StatefulWidget {
   const AddAuthority({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _AddAuthorityState createState() => _AddAuthorityState();
 }
 
@@ -227,7 +228,7 @@ class _AddAuthorityState extends State<AddAuthority> {
                                       });
                                     }
                                   } catch (e) {
-                                    print(e);
+                                    utils().toastMessage(e.toString());
                                   }
                                 }
                               },

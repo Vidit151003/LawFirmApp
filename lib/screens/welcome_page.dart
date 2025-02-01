@@ -6,7 +6,7 @@ import 'package:app1/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class WelcomePage extends StatelessWidget {
-  const WelcomePage({super.key, Key? Key});
+  const WelcomePage({super.key,});
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +94,7 @@ class WelcomePage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => PhoneLogin(),
+                          builder: (context) => const PhoneLogin(),
                         ),
                       );
                       // Handle phone sign-in logic here
